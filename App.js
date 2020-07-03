@@ -8,16 +8,10 @@
 
 import React from 'react';
 import {SafeAreaView, StyleSheet, Text, StatusBar} from 'react-native';
+import MapScreen from './components/MapScreen';
 
 export default function App() {
-  return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <Text>welcome to the amazing not race</Text>
-      </SafeAreaView>
-    </>
-  );
+  return <MapScreen />;
 }
 
 const styles = StyleSheet.create({});
