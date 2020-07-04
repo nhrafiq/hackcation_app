@@ -3,6 +3,7 @@ import MapView, { Marker, Polyline } from "react-native-maps";
 import { View, Text, StyleSheet } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapViewDirections from "react-native-maps-directions";
+import { Button } from "react-native-paper";
 
 export function MapScreen() {
 	const APIKEY = "AIzaSyDHg7w833zvKmsb7ja1SwazC-LBY-0ZzCU";
@@ -14,12 +15,12 @@ export function MapScreen() {
 			coords: { latitude: 48.8566, longitude: 2.3522 },
 			distance: 0,
 		},
-		{
-			key: 2,
-			name: "Madrid, Spain",
-			coords: { latitude: 40.4637, longitude: -3.7492 },
-			distance: 0,
-		},
+		// {
+		// 	key: 2,
+		// 	name: "Madrid, Spain",
+		// 	coords: { latitude: 40.4637, longitude: -3.7492 },
+		// 	distance: 0,
+		// },
 	]);
 
 	//https://github.com/react-native-community/react-native-maps/issues/929
@@ -50,7 +51,7 @@ export function MapScreen() {
 	return (
 		<View style={styles.container}>
 			<GooglePlacesAutocomplete
-				placeholder="Search"
+				placeholder="Search for a new destination"
 				fetchDetails={true}
 				styles={{ container: styles.searchContainer }}
 				onPress={(data, details = null) => {
@@ -80,26 +81,35 @@ export function MapScreen() {
 				}}
 			/>
 			<MapView style={styles.mapStyle}>
-				{locations.map((key) => (
-					<Marker identifier={key.name} coordinate={key.coords} />
+				{locations.map((place) => (
+					<Marker
+						identifier={place.name}
+						coordinate={place.coords}
+						key={place.key}
+					/>
 				))}
-				{locations.map((key, index) => {
+				{locations.map((place, index) => {
 					if (index > 0) {
 						return (
 							<MapViewDirections
 								origin={locations[0].coords}
-								destination={key.coords}
+								destination={place.coords}
 								apikey={APIKEY}
 								strokeWidth={3}
 								strokeColor={"#368f8b"}
+								key={place.key}
 							/>
 						);
 					}
 				})}
 			</MapView>
-			<Text style={styles.distance}>
-				{locations[locations.length - 1].distance}
-			</Text>
+			<Button
+				mode="contained"
+				style={styles.startButton}
+				labelStyle={{ color: "white" }}
+			>
+				Start Counting Steps
+			</Button>
 		</View>
 	);
 }
@@ -108,25 +118,23 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "#fff",
-		alignItems: "center",
-		justifyContent: "center",
 	},
 	mapStyle: {
 		width: "100%",
-		height: "70%",
+		height: "100%",
 	},
 	searchContainer: {
 		width: "100%",
 		position: "absolute",
-		top: 60,
+		top: 0,
 		zIndex: 2,
 		backgroundColor: "white",
 	},
-	distance: {
-		backgroundColor: "orange",
-		paddingHorizontal: 20,
-		borderRadius: 15,
-		fontSize: 18,
+	startButton: {
+		position: "absolute",
+		bottom: 15,
+		zIndex: 2,
+		backgroundColor: "#246A73",
 		alignSelf: "center",
 	},
 });
