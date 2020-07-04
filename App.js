@@ -1,11 +1,13 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { Provider } from "react-redux";
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from './screens/HomeScreen';
-import { MapScreen } from './screens/MapScreen'; 
+import { MapScreen } from './screens/MapScreen';
+import store from "./store"
 
 const Stack = createStackNavigator();
 
@@ -22,14 +24,16 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <PaperProvider theme={theme}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Overview' }} />
-          <Stack.Screen name="Map" component={MapScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-      </PaperProvider>
+      <Provider store={store}>
+        <PaperProvider theme={theme}>
+          <NavigationContainer>
+            <Stack.Navigator>
+              <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Overview' }} />
+              <Stack.Screen name="Map" component={MapScreen} />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </PaperProvider>
+      </Provider>
     );
   }
 }
