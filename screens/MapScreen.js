@@ -1,9 +1,11 @@
 import * as React from "react";
-import MapView, { Marker, Polyline } from "react-native-maps";
-import { View, Text, StyleSheet } from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import { View, StatusBar, StyleSheet } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapViewDirections from "react-native-maps-directions";
 import { Button } from "react-native-paper";
+import * as Location from "expo-location";
+import * as Permissions from "expo-permissions";
 
 export function MapScreen() {
 	const APIKEY = "AIzaSyDHg7w833zvKmsb7ja1SwazC-LBY-0ZzCU";
@@ -22,6 +24,42 @@ export function MapScreen() {
 		// 	distance: 0,
 		// },
 	]);
+
+	//https://www.youtube.com/watch?v=UcWG2o2gVzw
+	_getLocation = async () => {
+		const { status } = await Permissions.askAsync(Permissions.LOCATION);
+
+		if (status !== "granted") {
+			console.log("PERMISSION NOT GRAINTED!");
+		}
+
+		const userLocation = await Location.getCurrentPositionAsync();
+		const userLocationName = await Location.reverseGeocodeAsync({
+			latitude: userLocation.coords.latitude,
+			longitude: userLocation.coords.longitude,
+		});
+		addLocation([
+			...locations,
+			{
+				key: locations.length + 1,
+				name:
+					userLocationName[0].city +
+					" " +
+					userLocationName[0].region +
+					", " +
+					userLocationName[0].country, //fix
+				coords: {
+					latitude: userLocation.coords.latitude,
+					longitude: userLocation.coords.longitude,
+				},
+				distance: 0,
+			},
+		]);
+	};
+
+	React.useEffect(() => {
+		_getLocation();
+	}, []);
 
 	//https://github.com/react-native-community/react-native-maps/issues/929
 	getDistance = (origin, destination) => {
@@ -50,12 +88,12 @@ export function MapScreen() {
 
 	return (
 		<View style={styles.container}>
+			<StatusBar barStyle="dark-content" />
 			<GooglePlacesAutocomplete
 				placeholder="Search for a new destination"
 				fetchDetails={true}
 				styles={{ container: styles.searchContainer }}
 				onPress={(data, details = null) => {
-					// 'details' is provided when fetchDetails = true
 					// console.log(details);
 
 					getDistance(locations[0].name, details.formatted_address);
@@ -72,15 +110,21 @@ export function MapScreen() {
 							distance: distance,
 						},
 					]);
-
-					// setDistance(-1);
 				}}
 				query={{
 					key: "AIzaSyDHg7w833zvKmsb7ja1SwazC-LBY-0ZzCU",
 					language: "en",
 				}}
 			/>
-			<MapView style={styles.mapStyle}>
+			<MapView
+				style={styles.mapStyle}
+				region={{
+					latitude: locations[0].coords.latitude,
+					longitude: locations[0].coords.longitude,
+					latitudeDelta: 70,
+					longitudeDelta: 0.0421,
+				}}
+			>
 				{locations.map((place) => (
 					<Marker
 						identifier={place.name}
