@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from './screens/HomeScreen';
 import { MapScreen } from './screens/MapScreen';
 import store from "./store"
+import ARFilter from './screens/ARFilter';
 
 const Stack = createStackNavigator();
 
@@ -21,8 +22,8 @@ const theme = {
 };
 
 export default class App extends React.Component {
-
   render() {
+    console.disableYellowBox = true;
     return (
       <Provider store={store}>
         <PaperProvider theme={theme}>
@@ -30,6 +31,7 @@ export default class App extends React.Component {
             <Stack.Navigator>
               <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Overview' }} />
               <Stack.Screen name="Map" component={MapScreen} />
+              <Stack.Screen name="AR" component={ARFilter}  />
             </Stack.Navigator>
           </NavigationContainer>
         </PaperProvider>

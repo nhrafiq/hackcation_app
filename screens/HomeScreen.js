@@ -30,7 +30,7 @@ export function HomeScreen({ navigation }) {
                 color="#246A73"
                 size={40}
                 style={styles.button}
-                onPress={() => navigation.navigate('Map')}
+                onPress={() => navigation.navigate('AR', {selectedItem:"paris"})}
             />
         </View>
     );
