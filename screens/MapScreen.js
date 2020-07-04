@@ -11,18 +11,13 @@ export function MapScreen() {
 	const APIKEY = "AIzaSyDHg7w833zvKmsb7ja1SwazC-LBY-0ZzCU";
 	const [distance, setDistance] = React.useState(-1);
 	const [locations, addLocation] = React.useState([
+		//map needs one dummy location to use while loading current user location
 		{
 			key: 1,
 			name: "Paris, France",
 			coords: { latitude: 48.8566, longitude: 2.3522 },
 			distance: 0,
 		},
-		// {
-		// 	key: 2,
-		// 	name: "Madrid, Spain",
-		// 	coords: { latitude: 40.4637, longitude: -3.7492 },
-		// 	distance: 0,
-		// },
 	]);
 
 	//https://www.youtube.com/watch?v=UcWG2o2gVzw
@@ -119,24 +114,29 @@ export function MapScreen() {
 			<MapView
 				style={styles.mapStyle}
 				region={{
-					latitude: locations[0].coords.latitude,
-					longitude: locations[0].coords.longitude,
+					//map will focus on most recently added location
+					latitude: locations[locations.length - 1].coords.latitude,
+					longitude: locations[locations.length - 1].coords.longitude,
 					latitudeDelta: 70,
 					longitudeDelta: 0.0421,
 				}}
 			>
-				{locations.map((place) => (
-					<Marker
-						identifier={place.name}
-						coordinate={place.coords}
-						key={place.key}
-					/>
-				))}
+				{locations.map((place, index) => {
+					if (index > 0) {
+						return (
+							<Marker
+								identifier={place.name}
+								coordinate={place.coords}
+								key={place.key}
+							/>
+						);
+					}
+				})}
 				{locations.map((place, index) => {
 					if (index > 0) {
 						return (
 							<MapViewDirections
-								origin={locations[0].coords}
+								origin={locations[1].coords} //home location
 								destination={place.coords}
 								apikey={APIKEY}
 								strokeWidth={3}
