@@ -20,7 +20,8 @@ export function HomeScreen({ navigation }) {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: "column" }}>
             <Title style={styles.title}>Destinations Unlocked</Title>
             <View style={styles.cards}>
-                {locations.map(location => <Card key={location.key} style={styles.card}>
+                {locations.map(location => 
+                <Card key={location.key} style={styles.card} onPress={() => navigation.navigate('Destination', {location:location})}>
                     <Card.Cover source={{ uri: location.url }} />
                     <Card.Title title={location.title}/>
                 </Card>)}

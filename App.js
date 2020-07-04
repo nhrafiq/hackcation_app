@@ -8,7 +8,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { HomeScreen } from './screens/HomeScreen';
 import { MapScreen } from './screens/MapScreen';
 import store from "./store"
-import ARFilter from './screens/ARFilter';
+import ARFilter from './screens/ARFilter_old';
+import { DestinationScreen } from './screens/DestinationScreen';
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,7 @@ export default class App extends React.Component {
             <Stack.Navigator>
               <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Overview' }} />
               <Stack.Screen name="Map" component={MapScreen} />
+              <Stack.Screen name="Destination" component={DestinationScreen} />
               <Stack.Screen name="AR" component={ARFilter}  />
             </Stack.Navigator>
           </NavigationContainer>

@@ -4,13 +4,15 @@ import { AR } from 'expo';
 import ExpoTHREE, { THREE } from 'expo-three';
 import * as ThreeAR from 'expo-three-ar';
 import { View as GraphicsView } from 'expo-graphics';
-import { Dimensions, View, Alert } from 'react-native';
+import { Dimensions, View, Alert, TouchableOpacity } from 'react-native';
 import { captureRef as takeSnapshotAsync } from 'react-native-view-shot';
 import { NavigationEvents } from '@react-navigation/native';
 
+import Capture from '../components/Capture';
+
 const { width, height } = Dimensions.get('window');
 
-export default class ARFilter_old extends React.Component {
+export default class ARFilter extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -45,7 +47,7 @@ export default class ARFilter_old extends React.Component {
       console.log(this.props.route.params.selectedItem,);
       return (
         <View style={{ flex: 1 }} >
-          <NavigationEvents
+          {/* <NavigationEvents
             onWillFocus={payload => {
               this.setState({
                 selectedItem:  route.params.selectedItem,
@@ -56,12 +58,8 @@ export default class ARFilter_old extends React.Component {
             //     selectedItem: navigation.getParam('selectedItem', null)
             //   });
             // }}
-          />
-          <View ref="captureArea" style={{ flex: 1 }}>
-            <TouchableView
-              style={{ flex: 1 }}
-              shouldCancelWhenOutside={false}
-              onTouchesBegan={this.onTouchesBegan}>
+          /> */}
+          <View ref="captureArea" style={{ flex: 1 }} onTouchesBegan={this.onTouchesBegan} shouldCancelWhenOutside={false}>
               <GraphicsView
                 style={{ flex: 1 }}
                 onContextCreate={this.onContextCreate}
@@ -72,7 +70,6 @@ export default class ARFilter_old extends React.Component {
                 isArCameraStateEnabled
                 arTrackingConfiguration={'ARWorldTrackingConfiguration'}
               />
-            </TouchableView>
           </View>
           <View
             style={{
@@ -84,7 +81,7 @@ export default class ARFilter_old extends React.Component {
               <Capture />
             </TouchableOpacity>
           </View>
-          <View
+          {/* <View
             style={{
               position: "absolute",
               bottom: 41,
@@ -93,8 +90,8 @@ export default class ARFilter_old extends React.Component {
             <TouchableOpacity onPress={() => { navigation.navigate('Marketplace') }} activeOpacity={0}>
               <MarketButton />
             </TouchableOpacity>
-          </View>
-          <View
+          </View> */}
+          {/* <View
             style={{
               position: "absolute",
               bottom: 42,
@@ -103,7 +100,7 @@ export default class ARFilter_old extends React.Component {
             <TouchableOpacity onPress={() => { navigation.navigate('Checkout') }} activeOpacity={0}>
               <AddToCartBtn />
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
       );
     }
