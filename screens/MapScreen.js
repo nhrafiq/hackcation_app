@@ -22,6 +22,31 @@ export function MapScreen() {
 		},
 	]);
 
+	//https://github.com/react-native-community/react-native-maps/issues/929
+	getDistance = (origin, destination) => {
+		var totalDistance = 0;
+		const route_url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${APIKEY}`;
+
+		fetch(route_url)
+			.then((response) => response.json())
+			.then((responseJSON) => {
+				// console.log(responseJSON);
+				if (responseJSON.routes.length) {
+					// sum distances
+					for (var i = 0; i < responseJSON.routes.length; i += 1) {
+						totalDistance =
+							totalDistance +
+							responseJSON.routes[0].legs[i].distance.value;
+					}
+					setDistance(totalDistance / 1000); //convert to km
+					console.log(totalDistance);
+				}
+			})
+			.catch((e) => {
+				console.warn(e);
+			});
+	};
+
 	return (
 		<View style={styles.container}>
 			<GooglePlacesAutocomplete
@@ -30,8 +55,9 @@ export function MapScreen() {
 				styles={{ container: styles.searchContainer }}
 				onPress={(data, details = null) => {
 					// 'details' is provided when fetchDetails = true
-					console.log(details);
+					// console.log(details);
 
+					getDistance(locations[0].name, details.formatted_address);
 					//update locations array
 					addLocation([
 						...locations,
@@ -46,7 +72,7 @@ export function MapScreen() {
 						},
 					]);
 
-					setDistance(-1);
+					// setDistance(-1);
 				}}
 				query={{
 					key: "AIzaSyDHg7w833zvKmsb7ja1SwazC-LBY-0ZzCU",
@@ -71,6 +97,9 @@ export function MapScreen() {
 					}
 				})}
 			</MapView>
+			<Text style={styles.distance}>
+				{locations[locations.length - 1].distance}
+			</Text>
 		</View>
 	);
 }
@@ -91,5 +120,13 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		top: 60,
 		zIndex: 2,
+		backgroundColor: "white",
+	},
+	distance: {
+		backgroundColor: "orange",
+		paddingHorizontal: 20,
+		borderRadius: 15,
+		fontSize: 18,
+		alignSelf: "center",
 	},
 });
