@@ -81,6 +81,10 @@ export function MapScreen() {
 			});
 	};
 
+    setGoal = () => { 
+
+    }
+
 	return (
 		<View style={styles.container}>
 			<StatusBar barStyle="dark-content" />
@@ -150,9 +154,10 @@ export function MapScreen() {
 			<Button
 				mode="contained"
 				style={styles.startButton}
-				labelStyle={{ color: "white" }}
+                labelStyle={{ color: "white" }}
+                onPress={()=> setGoal() }
 			>
-				Start Counting Steps
+				Start Your Journey
 			</Button>
 		</View>
 	);
