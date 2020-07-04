@@ -33,6 +33,8 @@ const locations = [
     }
 ]
 
+
+
 export function HomeScreen({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', flexDirection: "column" }}>
