@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { Title, IconButton, Colors, Card } from "react-native-paper";
 
 const locations = [
@@ -36,6 +36,7 @@ const locations = [
 				url: "https://www.youtube.com/watch?v=eJeF7hDB0UA",
 			},
 
+<<<<<<< HEAD
 			{
 				title: "Pantheon",
 				image:
@@ -102,6 +103,112 @@ export function HomeScreen({ navigation }) {
 			/>
 		</View>
 	);
+=======
+      {
+        title: "Pantheon",
+        image: "https://resize.hswstatic.com/w_907/gif/pantheon-parthenon.jpg",
+        url: "https://www.360cities.net/image/pantheon-rome",
+      },
+    ],
+  },
+  {
+    key: "Cairo",
+    title: "Cairo",
+    url:
+      "https://www.corinthiantravel.co.uk/blog/wp-content/uploads/2016/07/egypt-1024x680.jpg",
+    tours: [
+      {
+        title: "Tomb of Queen Meresankh III",
+        image:
+          "https://lh3.googleusercontent.com/proxy/Qn25iFdMEYCicmXg8kncPefiv_E0BGXViSBXyQ1YfeQOBy0LjvfGNWRWYLWOqY8KSYV7VftuoxOvsfJJie5OPWToCPyH_sdlUidXAdMLlETBIydys4e9bQBpzH0EYBCQ5_H2WZgoVe5XnIhrhPpUrzcr7T9f5g",
+        url: "https://my.matterport.com/show/?m=d42fuVA21To",
+      },
+      {
+        title: "The Great Pyramids of Giza",
+        image:
+          "https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/v1555389938/shape/mentalfloss/istock_000020293157_small_0.jpg?itok=l_HzbeIQ",
+        url: "https://www.youtube.com/watch?v=TMzouTzim0o",
+      },
+    ],
+  },
+  {
+    key: "Tokyo",
+    title: "Tokyo",
+    url:
+      "https://i.insider.com/5d26280921a86107bb51bd92?width=1067&format=jpeg",
+    tours: [
+      {
+        title: "Senso-ji",
+        image:
+          "https://i.pinimg.com/originals/53/ba/28/53ba28fceab59b99632f771b7e63d42a.jpg",
+        url: "https://www.youtube.com/watch?v=VreIzj9WRtk",
+      },
+      {
+        title: "Tokyo Sky Tree",
+        image:
+          "https://cdn.theculturetrip.com/wp-content/uploads/2018/05/eiffel-tower-3349075_1280-1.jpg",
+        url: "https://www.360cities.net/image/view-from-tokyo-skytree",
+      },
+    ],
+  },
+  {
+    key: "Berlin",
+    title: "Berlin",
+    url:
+      "https://media.globalchampionstour.com/cache/750x429/assets/berlin.jpg",
+    tours: [
+      {
+        title: "Brandenburg Gate",
+        image:
+          "https://www.history.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cg_faces:center%2Cq_auto:good%2Cw_768/MTU3OTIzNTc4ODAwMjUyNTYy/brandenburg-gate-a-brief-historys-featured-photo.jpg",
+        url: "https://www.youtube.com/watch?v=URG8eIhqL6M",
+      },
+      {
+        title: "Berlin Wall Memorial",
+        image:
+          "https://cdn.theculturetrip.com/wp-content/uploads/2018/05/eiffel-tower-3349075_1280-1.jpg",
+        url: "https://www.youtube.com/watch?v=GXIYp8YX5M4",
+      },
+    ],
+  },
+];
+
+export function HomeScreen({ navigation }) {
+  return (
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
+      }}
+    >
+      <Title style={styles.title}>Destinations Unlocked</Title>
+
+      <ScrollView horizontal={true} contentContainerStyle={styles.cards}>
+        {locations.map((location) => (
+          <Card
+            key={location.key}
+            style={styles.card}
+            onPress={() =>
+              navigation.navigate("Destination", { location: location })
+            }
+          >
+            <Card.Cover source={{ uri: location.url }} />
+            <Card.Title title={location.title} />
+          </Card>
+        ))}
+      </ScrollView>
+      <IconButton
+        icon="navigation"
+        color="#246A73"
+        size={40}
+        style={styles.button}
+        onPress={() => navigation.navigate("Map")}
+      />
+    </View>
+  );
+>>>>>>> Update App.JS and Home Screen
 }
 
 const styles = StyleSheet.create({
