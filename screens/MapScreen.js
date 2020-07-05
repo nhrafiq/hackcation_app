@@ -168,7 +168,7 @@ export function MapScreen({ navigation }) {
 					await AsyncStorage.setItem("endLong", end.coords.longitude.toString());
 					await AsyncStorage.setItem("endName", end.name); 
 				}
-				navigation.navigate("Progress", {dist:calcDistance});
+				navigation.navigate("Progress", {dist:calcDistance, dest:end.name});
 			} catch (e) {
 				console.log(e);
 			}
@@ -183,7 +183,7 @@ export function MapScreen({ navigation }) {
 					await AsyncStorage.setItem("endLong", end.coords.longitude.toString());
 					await AsyncStorage.setItem("endName", end.name); 
 				}
-				navigation.navigate("Progress", {dist:distance});
+				navigation.navigate("Progress", {dist:distance, dest: end.name});
 			} catch (e) {
 				console.log(e);
 			}

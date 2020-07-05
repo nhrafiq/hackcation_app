@@ -91,16 +91,17 @@ export default class Progress extends React.Component {
   };
 
   render() {
-    const {dist} = this.props.route.params;
-    let progress = (parseDouble(this.state.currentStepCount)/ parseDouble(dist)) * 100;
+    const { dist, dest } = this.props.route.params;
+    let progress = ((parseInt(this.state.pastStepCount + this.state.currentStepCount) == "NaN")
+      ? this.state.currentStepCount : parseInt(this.state.pastStepCount + this.state.currentStepCount) / parseFloat(dist)) * 100;
     console.log(progress);
     return (
       <View style={styles.container}>
-        <Headline>{this.state.currentStepCount} / {dist}</Headline>
-        <ProgressBar progress={progress} color={Colors.red800} />
-        <Caption>En route to </Caption>
-        {/* <Text>Steps taken in the last 24 hours: {this.state.pastStepCount}</Text>
-        <Text>Walk! And watch this go up: {this.state.currentStepCount}</Text> */}
+        <Headline style={{alignSelf:"center"}}>
+          {(parseInt(this.state.pastStepCount + this.state.currentStepCount) == "NaN") ? this.state.currentStepCount : parseInt(this.state.pastStepCount + this.state.currentStepCount)} / {dist}
+        </Headline>
+        <ProgressBar progress={progress} color="#246A73" />
+        <Caption style={{alignSelf:"center"}}>En route to {dest} ...</Caption>
       </View>
     );
   }
@@ -110,7 +111,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 15,
-    alignItems: 'center',
     justifyContent: 'center',
   },
 });
