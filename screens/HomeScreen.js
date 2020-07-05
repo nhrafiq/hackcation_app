@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ScrollView } from "react-native";
 import { Title, IconButton, Colors, Card } from "react-native-paper";
 
 const locations = [
@@ -62,6 +62,46 @@ const locations = [
       },
     ],
   },
+  {
+    key: "Tokyo",
+    title: "Tokyo",
+    url:
+      "https://i.insider.com/5d26280921a86107bb51bd92?width=1067&format=jpeg",
+    tours: [
+      {
+        title: "Senso-ji",
+        image:
+          "https://i.pinimg.com/originals/53/ba/28/53ba28fceab59b99632f771b7e63d42a.jpg",
+        url: "https://www.youtube.com/watch?v=VreIzj9WRtk",
+      },
+      {
+        title: "Tokyo Sky Tree",
+        image:
+          "https://cdn.theculturetrip.com/wp-content/uploads/2018/05/eiffel-tower-3349075_1280-1.jpg",
+        url: "https://www.360cities.net/image/view-from-tokyo-skytree",
+      },
+    ],
+  },
+  {
+    key: "Berlin",
+    title: "Berlin",
+    url:
+      "https://media.globalchampionstour.com/cache/750x429/assets/berlin.jpg",
+    tours: [
+      {
+        title: "Brandenburg Gate",
+        image:
+          "https://www.history.com/.image/ar_16:9%2Cc_fill%2Ccs_srgb%2Cfl_progressive%2Cg_faces:center%2Cq_auto:good%2Cw_768/MTU3OTIzNTc4ODAwMjUyNTYy/brandenburg-gate-a-brief-historys-featured-photo.jpg",
+        url: "https://www.youtube.com/watch?v=URG8eIhqL6M",
+      },
+      {
+        title: "Berlin Wall Memorial",
+        image:
+          "https://cdn.theculturetrip.com/wp-content/uploads/2018/05/eiffel-tower-3349075_1280-1.jpg",
+        url: "https://www.youtube.com/watch?v=GXIYp8YX5M4",
+      },
+    ],
+  },
 ];
 
 export function HomeScreen({ navigation }) {
@@ -75,7 +115,8 @@ export function HomeScreen({ navigation }) {
       }}
     >
       <Title style={styles.title}>Destinations Unlocked</Title>
-      <View style={styles.cards}>
+
+      <ScrollView horizontal={true} contentContainerStyle={styles.cards}>
         {locations.map((location) => (
           <Card
             key={location.key}
@@ -88,7 +129,7 @@ export function HomeScreen({ navigation }) {
             <Card.Title title={location.title} />
           </Card>
         ))}
-      </View>
+      </ScrollView>
       <IconButton
         icon="navigation"
         color="#246A73"
