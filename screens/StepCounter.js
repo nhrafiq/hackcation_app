@@ -21,9 +21,10 @@ export default class Progress extends React.Component {
       const time = await AsyncStorage.getItem('startTime')
       if (dist !== null && time !== null) {
         // value previously stored
+        console.log("getData");
         console.log(dist);
         console.log(time);
-        this.setState({start:Date.parse(time)});
+        this.setState({start:Date(Date.parse(time))});
         console.log(this.state);
       }
     } catch (e) {
@@ -65,11 +66,12 @@ export default class Progress extends React.Component {
         value => { 
             console.log("value");
             console.log(value);
-            const start = Date.parse(value);
-            end.setDate(start.getDate() + 1);
+            const start = new Date(value);
             this.setState({start:start});
             console.log("start");
             console.log(start); 
+            console.log("end");
+            console.log(end); 
             Pedometer.getStepCountAsync(start, end).then(
                 result => {
                   this.setState({ pastStepCount: result.steps });

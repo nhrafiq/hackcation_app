@@ -122,7 +122,7 @@ export function MapScreen({ navigation }) {
 			var date = new Date();
 			try {
 				await AsyncStorage.setItem("distance", calcDistance.toString());
-				await AsyncStorage.setItem("startTime", JSON.stringify(date));
+				await AsyncStorage.setItem("startTime", date.toString());
 				navigation.navigate("Progress");
 			} catch (e) {
 				console.log(e);
