@@ -3,40 +3,6 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import { Title, IconButton, Colors, Card } from "react-native-paper";
 
 const locations = [
-<<<<<<< HEAD
-	{
-		key: "Paris",
-		title: "Paris",
-		url: "https://www.gpsmycity.com/img/gd_cover/1144.jpg",
-		tours: [
-			{
-				title: "Le Louvre",
-				image:
-					"https://img.theweek.in/content/dam/week/webworld/feature/society/2016/august/images/Louvre-museum-paris.jpg",
-				url:
-					"https://petitegalerie.louvre.fr/visite-virtuelle/saison5/",
-			},
-			{
-				title: "Eiffel Tower",
-				image:
-					"https://cdn.theculturetrip.com/wp-content/uploads/2018/05/eiffel-tower-3349075_1280-1.jpg",
-				url: "https://www.youtube.com/watch?v=nbD8XYTw23Y",
-			},
-		],
-	},
-	{
-		key: "Rome",
-		title: "Rome",
-		url:
-			"https://mymodernmet.com/wp/wp-content/uploads/2019/05/colosseum-facts-3.jpg",
-		tours: [
-			{
-				title: "Colosseum",
-				image:
-					"https://www.planetware.com/wpimages/2019/05/italy-rome-colosseum-visiting-highlights-tips-tours.jpg",
-				url: "https://www.youtube.com/watch?v=eJeF7hDB0UA",
-			},
-=======
   {
     key: "Paris",
     title: "Paris",
@@ -75,7 +41,6 @@ const locations = [
           "https://www.planetware.com/wpimages/2019/05/italy-rome-colosseum-visiting-highlights-tips-tours.jpg",
         url: "https://www.youtube.com/watch?v=eJeF7hDB0UA",
       },
->>>>>>> add recipes
 
       {
         title: "Pantheon",
