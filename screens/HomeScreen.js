@@ -148,7 +148,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignContent: "flex-start",
     marginTop: 50,
-    flexWrap: "wrap",
   },
   title: {
     position: "absolute",
@@ -168,6 +167,6 @@ const styles = StyleSheet.create({
     height: "40%",
     width: "45%",
     alignSelf: "flex-start",
-    margin: "2.5%",
+    marginRight: "2.5%",
   },
 });
