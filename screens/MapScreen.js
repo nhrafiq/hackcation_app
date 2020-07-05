@@ -18,9 +18,9 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
 	var a =
 		Math.sin(dLat / 2) * Math.sin(dLat / 2) +
 		Math.cos(deg2rad(lat1)) *
-			Math.cos(deg2rad(lat2)) *
-			Math.sin(dLon / 2) *
-			Math.sin(dLon / 2);
+		Math.cos(deg2rad(lat2)) *
+		Math.sin(dLon / 2) *
+		Math.sin(dLon / 2);
 	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 	var d = R * c; // Distance in km
 	return d;
@@ -45,6 +45,7 @@ export function MapScreen({ navigation }) {
 	]);
 	//polylineLocations is updated dynamically as unroutable locations are selected
 	const [polylineLocations, addPolyline] = React.useState([]);
+	const [btnText, setBtnText] = React.useState("Start your journey!")
 
 	//https://www.youtube.com/watch?v=UcWG2o2gVzw
 	_getLocation = async () => {
@@ -59,23 +60,42 @@ export function MapScreen({ navigation }) {
 			latitude: userLocation.coords.latitude,
 			longitude: userLocation.coords.longitude,
 		});
-		addLocation([
-			...locations,
-			{
-				key: locations.length + 1,
-				name:
-					userLocationName[0].city +
-					" " +
-					userLocationName[0].region +
-					", " +
-					userLocationName[0].country,
-				coords: {
-					latitude: userLocation.coords.latitude,
-					longitude: userLocation.coords.longitude,
+		let long = await AsyncStorage.getItem("endLong"); 
+		let lat = await AsyncStorage.getItem("endLat");
+		let name = await AsyncStorage.getItem("endName");
+		let dist = await AsyncStorage.getItem("distance");
+		console.log(long, lat, name, dist);
+		if(lat !== null && long != null && name !== null && dist !== null)
+		{ 
+			console.log("here")
+			setBtnText("Continue Journey");
+			addLocation([
+				...locations,
+				{
+					key: locations.length + 1,
+					name:
+						userLocationName[0].city +
+						" " +
+						userLocationName[0].region +
+						", " +
+						userLocationName[0].country,
+					coords: {
+						latitude: userLocation.coords.latitude,
+						longitude: userLocation.coords.longitude,
+					},
+					distance: 0,
 				},
-				distance: 0,
-			},
-		]);
+				{
+					key: locations.length + 2,
+					name: name,
+					coords: {
+						latitude: parseFloat(lat),
+						longitude: parseFloat(long),
+					},
+					distance: parseFloat(dist),
+				},
+			]);
+		}
 	};
 
 	React.useEffect(() => {
@@ -121,8 +141,30 @@ export function MapScreen({ navigation }) {
 			calcDistance = parseInt(calcDistance);
 			var date = new Date();
 			try {
-				await AsyncStorage.setItem("distance", calcDistance.toString());
-				await AsyncStorage.setItem("startTime", date.toString());
+				const time = await AsyncStorage.getItem("startTime");
+				if (time == null) {
+					console.log("here");
+					await AsyncStorage.setItem("distance", calcDistance.toString());
+					await AsyncStorage.setItem("startTime", date.toString());
+					await AsyncStorage.setItem("endLat", end.coords.latitude.toString()); 
+					await AsyncStorage.setItem("endLong", end.coords.longitude.toString());
+					await AsyncStorage.setItem("endName", end.name); 
+				}
+				navigation.navigate("Progress");
+			} catch (e) {
+				console.log(e);
+			}
+		} else {
+			var date = new Date();
+			try {
+				const time = await AsyncStorage.getItem("startTime");
+				if (time == null) {
+					await AsyncStorage.setItem("distance", calcDistance.toString());
+					await AsyncStorage.setItem("startTime", date.toString());
+					await AsyncStorage.setItem("endLat", end.coords.latitude); 
+					await AsyncStorage.setItem("endLong", end.coords.longitude);
+					await AsyncStorage.setItem("endName", end.name); 
+				}
 				navigation.navigate("Progress");
 			} catch (e) {
 				console.log(e);
@@ -139,7 +181,6 @@ export function MapScreen({ navigation }) {
 				styles={{ container: styles.searchContainer }}
 				onPress={(data, details = null) => {
 					// console.log(details);
-
 					getDistance(locations[0].name, details.formatted_address);
 					//update locations array
 					addLocation([
@@ -171,7 +212,10 @@ export function MapScreen({ navigation }) {
 				}}
 			>
 				{locations.map((place, index) => {
+					console.log(place);
+					console.log(index);
 					if (index > 0) {
+						console.log("add");
 						return (
 							<Marker
 								identifier={place.name}
@@ -215,7 +259,7 @@ export function MapScreen({ navigation }) {
 				labelStyle={{ color: "white" }}
 				onPress={() => setGoal()}
 			>
-				Start Your Journey
+				{btnText}
 			</Button>
 		</View>
 	);
