@@ -36,74 +36,6 @@ const locations = [
 				url: "https://www.youtube.com/watch?v=eJeF7hDB0UA",
 			},
 
-<<<<<<< HEAD
-			{
-				title: "Pantheon",
-				image:
-					"https://resize.hswstatic.com/w_907/gif/pantheon-parthenon.jpg",
-				url: "https://www.360cities.net/image/pantheon-rome",
-			},
-		],
-	},
-	{
-		key: "Cairo",
-		title: "Cairo",
-		url:
-			"https://www.corinthiantravel.co.uk/blog/wp-content/uploads/2016/07/egypt-1024x680.jpg",
-		tours: [
-			{
-				title: "Tomb of Queen Meresankh III",
-				image:
-					"https://lh3.googleusercontent.com/proxy/Qn25iFdMEYCicmXg8kncPefiv_E0BGXViSBXyQ1YfeQOBy0LjvfGNWRWYLWOqY8KSYV7VftuoxOvsfJJie5OPWToCPyH_sdlUidXAdMLlETBIydys4e9bQBpzH0EYBCQ5_H2WZgoVe5XnIhrhPpUrzcr7T9f5g",
-				url: "https://my.matterport.com/show/?m=d42fuVA21To",
-			},
-			{
-				title: "The Great Pyramids of Giza",
-				image:
-					"https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/v1555389938/shape/mentalfloss/istock_000020293157_small_0.jpg?itok=l_HzbeIQ",
-				url: "https://www.youtube.com/watch?v=TMzouTzim0o",
-			},
-		],
-	},
-];
-
-export function HomeScreen({ navigation }) {
-	return (
-		<View
-			style={{
-				flex: 1,
-				alignItems: "center",
-				justifyContent: "center",
-				flexDirection: "column",
-			}}
-		>
-			<Title style={styles.title}>Destinations Unlocked</Title>
-			<View style={styles.cards}>
-				{locations.map((location) => (
-					<Card
-						key={location.key}
-						style={styles.card}
-						onPress={() =>
-							navigation.navigate("Destination", {
-								location: location,
-							})
-						}
-					>
-						<Card.Cover source={{ uri: location.url }} />
-						<Card.Title title={location.title} />
-					</Card>
-				))}
-			</View>
-			<IconButton
-				icon="navigation"
-				color="#246A73"
-				size={40}
-				style={styles.button}
-				onPress={() => navigation.navigate("Map")}
-			/>
-		</View>
-	);
-=======
       {
         title: "Pantheon",
         image: "https://resize.hswstatic.com/w_907/gif/pantheon-parthenon.jpg",
@@ -208,36 +140,34 @@ export function HomeScreen({ navigation }) {
       />
     </View>
   );
->>>>>>> Update App.JS and Home Screen
 }
 
 const styles = StyleSheet.create({
-	cards: {
-		flex: 1,
-		flexDirection: "row",
-		justifyContent: "flex-start",
-		alignContent: "flex-start",
-		marginTop: 50,
-		flexWrap: "wrap",
-	},
-	title: {
-		position: "absolute",
-		top: 10,
-	},
-	button: {
-		position: "absolute",
-		bottom: 10,
-		borderRadius: 70,
-		height: 70,
-		width: 70,
-		borderStyle: "solid",
-		borderWidth: 5,
-		borderColor: "#246A73",
-	},
-	card: {
-		height: "40%",
-		width: "45%",
-		alignSelf: "flex-start",
-		margin: "2.5%",
-	},
+  cards: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignContent: "flex-start",
+    marginTop: 50,
+  },
+  title: {
+    position: "absolute",
+    top: 10,
+  },
+  button: {
+    position: "absolute",
+    bottom: 10,
+    borderRadius: 70,
+    height: 70,
+    width: 70,
+    borderStyle: "solid",
+    borderWidth: 5,
+    borderColor: "#246A73",
+  },
+  card: {
+    height: "40%",
+    width: "45%",
+    alignSelf: "flex-start",
+    marginRight: "2.5%",
+  },
 });
