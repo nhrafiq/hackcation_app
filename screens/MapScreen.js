@@ -95,6 +95,24 @@ export function MapScreen({ navigation }) {
 					distance: parseFloat(dist),
 				},
 			]);
+		} else { 
+			addLocation([
+				...locations,
+				{
+					key: locations.length + 1,
+					name:
+						userLocationName[0].city +
+						" " +
+						userLocationName[0].region +
+						", " +
+						userLocationName[0].country,
+					coords: {
+						latitude: userLocation.coords.latitude,
+						longitude: userLocation.coords.longitude,
+					},
+					distance: 0,
+				}
+			]);
 		}
 	};
 
@@ -131,7 +149,7 @@ export function MapScreen({ navigation }) {
 		let start = locations[locations.length - 2];
 		let end = locations[locations.length - 1];
 		let calcDistance = 0;
-		if (distance == -1) {
+		if (distance == -1 || distance == 0) {
 			calcDistance = getDistanceFromLatLonInKm(
 				start.coords.latitude,
 				start.coords.longitude,
@@ -150,7 +168,7 @@ export function MapScreen({ navigation }) {
 					await AsyncStorage.setItem("endLong", end.coords.longitude.toString());
 					await AsyncStorage.setItem("endName", end.name); 
 				}
-				navigation.navigate("Progress");
+				navigation.navigate("Progress", {dist:calcDistance});
 			} catch (e) {
 				console.log(e);
 			}
@@ -159,13 +177,13 @@ export function MapScreen({ navigation }) {
 			try {
 				const time = await AsyncStorage.getItem("startTime");
 				if (time == null) {
-					await AsyncStorage.setItem("distance", calcDistance.toString());
+					await AsyncStorage.setItem("distance", distance.toString());
 					await AsyncStorage.setItem("startTime", date.toString());
-					await AsyncStorage.setItem("endLat", end.coords.latitude); 
-					await AsyncStorage.setItem("endLong", end.coords.longitude);
+					await AsyncStorage.setItem("endLat", end.coords.latitude.toString()); 
+					await AsyncStorage.setItem("endLong", end.coords.longitude.toString());
 					await AsyncStorage.setItem("endName", end.name); 
 				}
-				navigation.navigate("Progress");
+				navigation.navigate("Progress", {dist:distance});
 			} catch (e) {
 				console.log(e);
 			}
