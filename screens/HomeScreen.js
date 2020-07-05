@@ -3,6 +3,7 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import { Title, IconButton, Colors, Card } from "react-native-paper";
 
 const locations = [
+<<<<<<< HEAD
 	{
 		key: "Paris",
 		title: "Paris",
@@ -35,6 +36,46 @@ const locations = [
 					"https://www.planetware.com/wpimages/2019/05/italy-rome-colosseum-visiting-highlights-tips-tours.jpg",
 				url: "https://www.youtube.com/watch?v=eJeF7hDB0UA",
 			},
+=======
+  {
+    key: "Paris",
+    title: "Paris",
+    url: "https://www.gpsmycity.com/img/gd_cover/1144.jpg",
+    tours: [
+      {
+        title: "Le Louvre",
+        image:
+          "https://img.theweek.in/content/dam/week/webworld/feature/society/2016/august/images/Louvre-museum-paris.jpg",
+        url: "https://petitegalerie.louvre.fr/visite-virtuelle/saison5/",
+      },
+      {
+        title: "Eiffel Tower",
+        image:
+          "https://cdn.theculturetrip.com/wp-content/uploads/2018/05/eiffel-tower-3349075_1280-1.jpg",
+        url: "https://www.youtube.com/watch?v=nbD8XYTw23Y",
+      },
+    ],
+    recipes: [
+      {
+        title: "French Macarons",
+        image: "https://cdn.sallysbakingaddiction.com/wp-content/uploads/2015/08/homemade-french-macarons-600x900.jpg",
+        url: "https://sallysbakingaddiction.com/step-by-step-guide-to-french-macarons/",
+      }
+    ]
+  },
+  {
+    key: "Rome",
+    title: "Rome",
+    url:
+      "https://mymodernmet.com/wp/wp-content/uploads/2019/05/colosseum-facts-3.jpg",
+    tours: [
+      {
+        title: "Colosseum",
+        image:
+          "https://www.planetware.com/wpimages/2019/05/italy-rome-colosseum-visiting-highlights-tips-tours.jpg",
+        url: "https://www.youtube.com/watch?v=eJeF7hDB0UA",
+      },
+>>>>>>> add recipes
 
       {
         title: "Pantheon",
@@ -42,6 +83,13 @@ const locations = [
         url: "https://www.360cities.net/image/pantheon-rome",
       },
     ],
+    recipes: [
+      { 
+        title:"Rigatoni with Vodka Sauce",
+        image: "https://www.acouplecooks.com/wp-content/uploads/2019/09/Pasta-with-Vodka-Sauce-002.jpg",
+        url:"https://www.acouplecooks.com/vodka-sauce-pasta-party-tips/",
+      }
+    ]
   },
   {
     key: "Cairo",
@@ -62,6 +110,13 @@ const locations = [
         url: "https://www.youtube.com/watch?v=TMzouTzim0o",
       },
     ],
+    recipes: [
+      { 
+        title:"Koshari",
+        image: "https://amiraspantry.com/wp-content/uploads/2018/05/koshari-II.jpg",
+        url: "https://amiraspantry.com/egyptian-koshari/",
+      }
+    ]
   },
   {
     key: "Tokyo",
@@ -82,6 +137,13 @@ const locations = [
         url: "https://www.360cities.net/image/view-from-tokyo-skytree",
       },
     ],
+    recipes: [
+      { 
+        title: "Yaki Udon", 
+        image: "https://drivemehungry.com/wp-content/uploads/2019/09/yaki-udon-udon-noodle-stir-fry-9-768x1024.jpg",
+        url: "https://drivemehungry.com/yaki-udon-stir-fried-udon-noodles/"
+      }
+    ]
   },
   {
     key: "Berlin",
@@ -117,7 +179,7 @@ export function HomeScreen({ navigation }) {
     >
       <Title style={styles.title}>Destinations Unlocked</Title>
 
-      <ScrollView horizontal={true} contentContainerStyle={styles.cards}>
+      <ScrollView contentContainerStyle={styles.cards}>
         {locations.map((location) => (
           <Card
             key={location.key}
@@ -148,7 +210,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-start",
     alignContent: "flex-start",
+    flexWrap: "wrap",
     marginTop: 50,
+    height: "50%",
+    overflow: "hidden",
   },
   title: {
     position: "absolute",
@@ -165,9 +230,11 @@ const styles = StyleSheet.create({
     borderColor: "#246A73",
   },
   card: {
-    height: "40%",
+    height: "35%",
     width: "45%",
     alignSelf: "flex-start",
     marginRight: "2.5%",
+    marginLeft: "2.5%",
+    marginTop: 5,
   },
 });
