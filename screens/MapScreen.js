@@ -1,6 +1,6 @@
 import * as React from "react";
 import MapView, { Marker, Polyline } from "react-native-maps";
-import { View, StatusBar, StyleSheet, YellowBox } from "react-native";
+import { View, StyleSheet, YellowBox } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapViewDirections from "react-native-maps-directions";
 import { Button } from "react-native-paper";
@@ -132,7 +132,6 @@ export function MapScreen({ navigation }) {
 
 	return (
 		<View style={styles.container}>
-			<StatusBar barStyle="dark-content" />
 			<GooglePlacesAutocomplete
 				placeholder="Search for a new destination"
 				fetchDetails={true}
